@@ -1,5 +1,5 @@
 <div class="main">
-    <div class="grid-container" >
+    <div class="grid-container">
         <mat-grid-list [cols]="width.valid ? width.value: 5" rowHeight='4:3'>
             <mat-grid-tile *ngFor="let cell of cells"
                            [ngClass]="cell.active ? 'active': ''">
@@ -73,6 +73,12 @@
                     allowed characters are only D A and G
                 </mat-error>
             </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>Remaining Sequence</mat-label>
+                <input matInput name="remaining_sequence" placeholder="remaining_sequence" disabled [(ngModel)]="remainingSequence" [ngModelOptions]="{standalone: true}">
+
+            </mat-form-field>
+
 
             <button mat-button mat-stroked-button (click)="play()"
                     [disabled]="!form.valid">

@@ -26,6 +26,7 @@ export class AppComponent implements OnInit {
     };
     direction = Direction;
     form: FormGroup;
+    remainingSequence = '';
 
     ngOnInit(): void {
         this.initializeFormGroup();
@@ -189,10 +190,10 @@ export class AppComponent implements OnInit {
         this.refreshCurrentStatus();
         await delay(1000);
 
-        let sequencePlay = this.sequence.value;
-        while (sequencePlay.length > 0) {
-            console.log(sequencePlay[0]);
-            const nextMove = sequencePlay[0];
+        this.remainingSequence = this.sequence.value;
+        while (this.remainingSequence.length > 0) {
+            console.log(this.remainingSequence[0]);
+            const nextMove = this.remainingSequence[0];
             switch (nextMove.toUpperCase()) {
                 case 'A': {
                     this.moveForward();
@@ -211,7 +212,7 @@ export class AppComponent implements OnInit {
                 }
             }
 
-            sequencePlay = sequencePlay.substr(1);
+            this.remainingSequence = this.remainingSequence.substr(1);
             this.refreshCurrentStatus();
             await delay(1000);
 
@@ -265,18 +266,35 @@ export class AppComponent implements OnInit {
     moveForward(): void {
         switch (this.active.direction) {
             case  Direction.NORTH: {
+                if (this.active.y + 2 > this.height.value) {
+                    alert('impossible move');
+                    break;
+                }
                 this.active.y = this.active.y + 1;
+
                 break;
             }
             case  Direction.EAST: {
+                if (this.active.x + 2 > this.width.value) {
+                    alert('impossible move');
+                    break;
+                }
                 this.active.x = this.active.x + 1;
                 break;
             }
             case  Direction.WEST: {
+                if (this.active.x - 1 < 0) {
+                    alert('impossible move');
+                    break;
+                }
                 this.active.x = this.active.x - 1;
                 break;
             }
             case  Direction.SOUTH: {
+                if (this.active.y - 1 < 0) {
+                    alert('impossible move');
+                    break;
+                }
                 this.active.y = this.active.y - 1;
                 break;
             }
