@@ -130,6 +130,9 @@ export class AppComponent implements OnInit {
         });
         this.initialPosition.valueChanges.subscribe(elt => {
             if (this.width.valid && this.height.valid && this.initialPosition.valid) {
+                console.log('all valid');
+
+                this.calculateTiles();
                 this.calculateInitialPosition();
             }
         });
